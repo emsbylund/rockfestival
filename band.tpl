@@ -3,7 +3,7 @@
     <head>
         <title>Rockfestival BLOMSTERMÅLA</title>
         <meta charset="utf-8">
-        <link href="style.css" type="text/css" rel="stylesheet">
+        <link href="/static/style.css" type="text/css" rel="stylesheet">
         <link href='https://fonts.googleapis.com/css?family=Lato:900,400,100' rel='stylesheet' type='text/css'>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
