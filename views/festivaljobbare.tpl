@@ -24,28 +24,6 @@
 
         <div id="wrapper">
 
-        <table border="1" style="width:100%">
-  <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-     <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr> <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-</table>
-
         </div>
 
         <footer>
