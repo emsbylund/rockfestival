@@ -8,26 +8,26 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <header> 
-            
+        <header>
+
             <h1 id="thick">ROCKFESTIVAL</h1><h1 id="thin">BLOMSTERMÅLA</h1>
             <nav>
                 <ul>
-                    <li><a href="spelschema.html">Spelschema</a> </li>
-                    <li><a href="festivaljobbare.htm">Festivalarbetare</a></li>
-                    <li><a href="chefer.htm">Chefer</a></li>
-                    <li><a href="band.htm">Band</a> </li>
-                    <li><a href="sakerhetsansvarig.htm">Säkerhetsansvarig</a></li>
+                    <li><a href="/schedule">Spelschema</a> </li>
+                    <li><a href="/festival_workers">Festivalarbetare</a></li>
+                    <li><a href="">Chefer</a></li>
+                    <li><a href="">Band</a> </li>
+                    <li><a href="">Säkerhetsansvarig</a></li>
                 </ul>
             </nav>
         </header>
-        
+
         <div id="wrapper">
-            
+
         </div>
-        
+
         <footer>
-        
+
         </footer>
     </body>
 </html>
