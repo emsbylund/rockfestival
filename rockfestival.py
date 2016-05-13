@@ -3,6 +3,11 @@
 import bottle
 from bottle import route, get, post, run, template, error, static_file, request, redirect, abort, response, app
 import MySQLdb
+from socket import *
+import datetime
+
+sock=socket()
+sock.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
 
 def call_database(sql, ask_database_to):
     # connect
@@ -29,16 +34,18 @@ def start_page():
 
 @route('/schedule')
 def schedule():
-    sql = "SELECT framtradande.starttid, framtradande.sluttid, band.namn as Band, scen.namn as Scen, framtradande.datum\
+    sql = "SELECT TIME(framtradande.starttid), TIME(framtradande.sluttid), band.namn as Band, scen.namn as Scen, DATE(framtradande.datum)\
                 FROM framtradande\
                 INNER JOIN band\
                 ON band.BandID = framtradande.bandID\
                 INNER JOIN scen\
                 ON framtradande.scen = scen.namn;"
     ask_database_to = ['fetchall()']
-    answer_from_db = call_database(sql, ask_it_to)
-    print answer_from_db[0]
-    return template('spelschema')
+    answer_from_db = call_database(sql, ask_database_to)
+    show_schedule = answer_from_db[0]
+    #for performance in show_schedule:
+        #print("{} spelar kl {} - {} den {} på scenen {}".format(performance[2], performance[0], performance[1], performance[4], performance[3]))
+    return template('spelschema', schedule = show_schedule)
 
 @route('/festival_workers')
 def show_festival_workers():

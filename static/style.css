@@ -1,3 +1,7 @@
+html, body {
+    min-height: 100%;
+}
+
 ul {
     list-style-type: none;
     margin: 0;
@@ -86,3 +90,14 @@ nav ul{
 
 }
 
+.left_box, .right_box {
+    width: 40%;
+    margin: 5%;
+    border: 2px solid green;
+    box-sizing: border-box;
+    padding: 2%;
+}
+
+#add_performance label, #add_performance input, #add_performance select {
+    display: block;
+}
