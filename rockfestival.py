@@ -49,7 +49,37 @@ def schedule():
 
 @route('/festival_workers')
 def show_festival_workers():
+    sql = "SELECT Festivaljobbare.Person_Nr, Festivaljobbare.Namn, Festivaljobbare.Telefon_Nr, Ansvarig_chef.Namn as Chef\
+             FROM Festivaljobbare\
+             INNER JOIN Ansvarig_Chef\
+             ON Festivaljobbare.Ansvarig_Chef = Ansvarig_Chef.PersonNr;"
+    ask_database_to = ['fetchall()']
+    answer_from_db = call_database(sql, ask_database_to)
+    show_festivaljobbare = answer_from_db[0]
+    #for worker in show_festivaljobbare:
+        #print("namn: {} telenr: {} personnr: {} chef: {}".format(worker[1], worker[2], worker[0], worker[3]))
+    sql1 = "SELECT namn, personNr\
+                FROM Ansvarig_Chef"
+    ask_database_to1 = ['fetchall()']
+    answer_from_db1 = call_database(sql1, ask_database_to1)
+    show_ansvarigchef= answer_from_db1[0]
+    return template('festivaljobbare', festivaljobbare = show_festivaljobbare, chef = show_ansvarigchef)
+
+@route('/add_new_worker/', method = "POST")
+def get_festival_workers():
+    namn = request.forms.get('name')
+    telnr = request.forms.get('TelNr')
+    bday = request.forms.get('bday')
+    boss = request.forms.get('choose_chef')
+
+    print boss
+    
+    sql2 = "INSERT\
+                INTO festivaljobbare(Namn, Person_nr, Telefon_nr, Ansvarig_chef)\
+                VALUES('%s', '%d', '%d', '%s', '%d')" % (namn, telnr, bday, )
+    ask_database_to2 = []              
     return template('festivaljobbare')
+
 
 @route('/static/<filename>')
 def server_static(filename):
