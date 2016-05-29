@@ -45,7 +45,7 @@
                 </div>
                 <div class="right_box">
                     <h2>Lägg till nytt framträdande</h2>
-                    <form name="add_performance" id="add_performance" method="POST" action="/add_new_performance">
+                    <form name="add_performance" id="add_performance" method="POST" action="/add_new_performance" class="dark-matter">
                         <select name="choose_band" form="add_performance" value="">
                             <option>Välj band</option>
                             %for band in list_of_bands:

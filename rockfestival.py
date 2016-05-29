@@ -6,8 +6,8 @@ import MySQLdb
 from socket import *
 import datetime
 
-sock=socket()
-sock.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
+#sock=socket()
+#sock.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
 
 db = None
 cursor = None
@@ -31,7 +31,7 @@ def start_page():
 
 @route('/schedule')
 def schedule():
-    sql = "SELECT TIME(framtradande.starttid), TIME(framtradande.sluttid), band.namn as Band, scen.namn as Scen, DATE(framtradande.datum)\
+    sql = "SELECT DATE_FORMAT(framtradande.starttid, '%h:%i'), DATE_FORMAT(framtradande.sluttid, '%h:%i'), band.namn as Band, scen.namn as Scen, DATE_FORMAT(framtradande.datum, '%y-%m-%d')\
                 FROM framtradande\
                 INNER JOIN band\
                 ON band.BandID = framtradande.bandID\
@@ -39,26 +39,17 @@ def schedule():
                 ON framtradande.scen = scen.namn;"
     cursor = call_database()
     cursor.execute(sql)
-    answer_from_db = cursor.fetchall()
-
-    # ÄNDRA TIME TILL DATETIME I DATABASEN ISTÄLLET!
-
-    #for every in answer_from_db:
-        #every[0][0] = (datetime.datetime.min + every[0]).time()
-    show_schedule = answer_from_db[0]
-    print answer_from_db
+    show_schedule = cursor.fetchall()
     sql2 = "SELECT namn\
                 FROM band"
     cursor.execute(sql2)
-    answer_from_db2 = cursor.fetchall()
-    list_of_bands = answer_from_db2[0]
+    list_of_bands = cursor.fetchall()
     sql3 = "SELECT namn\
                 FROM scen"
     cursor.execute(sql3)
-    answer_from_db3 = cursor.fetchall()
-    stages = answer_from_db3[0]
+    stages = cursor.fetchall()
     close_database()
-    #return template('spelschema', schedule = show_schedule, list_of_bands = list_of_bands, stages = stages)
+    return template('spelschema', schedule = show_schedule, list_of_bands = list_of_bands, stages = stages)
 
 @route('/festival_workers')
 def show_festival_workers():
@@ -119,6 +110,7 @@ def server_static(filename):
 
 @route('/add_new_performance', method="POST")
 def add_new_performance():
+    global db
     band = request.forms.get('choose_band')
     stage = request.forms.get('choose_stage')
     start_time = request.forms.get('add_start_time')
@@ -128,16 +120,13 @@ def add_new_performance():
     sql = "SELECT BandID FROM Band WHERE Namn = '%s'" % (band)
     cursor = call_database()
     cursor.execute(sql)
-    answer_from_database = cursor.fetchall()
-    #ask_database_to = ['fetchall()']
-    #answer_from_database = call_database(sql, ask_database_to)
-    band_id = answer_from_database[0][0][0]
+    answer_from_db = cursor.fetchone()
+    band_id = int(answer_from_db[0])
 
-    sql1 = "INSERT INTO framtradande(BandID, Starttid, Datum, Sluttid, Scen)\
-            #VALUES('%d', '%s', '%s', '%s', '%s')" % (band_id, start_time, date, finish_time, stage)
+    sql1 = "INSERT INTO framtradande VALUES('%d', '%s', '%s', '%s', '%s');" % (band_id, start_time, date, finish_time, stage)
     cursor.execute(sql1)
-    #ask_database_to1 = []
-    #answer_from_database1 = call_database(sql, ask_database_to)
-    print "Tjoho"
+    db.commit()
+    print "Det funkade"
+    close_database()
 
 run(host='localhost', port=8000, debug=True, reloader=True)
