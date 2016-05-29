@@ -54,15 +54,15 @@
                 Festivaljobbare:<br>
                 <input type="text" name="name" placeholder="Skriv namn & efternamn här"><br>
                 Telefon Nr:<br>
-                <input type="tel" max="10" min="7" name="TelNr" placeholder="Skriv ditt telefon nr här"><br>
+                <input type="text" max="10" min="7" name="TelNr" placeholder="Skriv ditt telefon nr här"><br>
                 Person Nr:<br>
                 <input type="text" name="bday" min="10" max="10" placeholder="ååmmddxxxx"><br>
                         
                 Välj ansvarig chef:<br>
-                <select name="choose_chef" form = add_worker value="">  
+                <select name="choose_chef" form="add_worker">  
                             %for name in chef:
                         
-                            <option>{{name[0]}}, {{name[1]}}</option>
+                            <option>{{name[0]}}</option>
                             %end
                         </select><br>
                 <input class="button" type="submit" value="Lägg till">
