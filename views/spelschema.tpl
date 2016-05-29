@@ -45,23 +45,25 @@
                 </div>
                 <div class="right_box">
                     <h2>Lägg till nytt framträdande</h2>
-                    <form name="add_performance" id="add_performance" method="POST" action="">
+                    <form name="add_performance" id="add_performance" method="POST" action="/add_new_performance">
                         <select name="choose_band" form="add_performance" value="">
                             <option>Välj band</option>
-                            <option>Band 1</option>
-                            <option>Band 2</option>
-                            <option>Band 3</option>
+                            %for band in list_of_bands:
+                                <option>{{band[0]}}</option>
+                            %end
                         </select>
                         <select name="choose_stage" form="add_performance">
                             <option>Välj scen</option>
-                            <option>Scen 1</option>
-                            <option>Scen 2</option>
-                            <option>Scen 3</option>
+                            %for stage in stages:
+                                <option>{{stage[0]}}</option>
+                            %end
                         </select>
                         <label for="add_start_time">Starttid:</label>
                         <input type="input" name="add_start_time" id="add_start_time" placeholder="hh:mm:ss">
                         <label for="add_finish_time">Sluttid:</label>
                         <input type="input" name="add_finish_time" id="add_finish_time" placeholder="hh:mm:ss">
+                        <label for="date_for_show">Datum: </label>
+                        <input type="input" name="date_for_show" id="date_for_show" placeholder="åååå-mm-dd">
                         <input type="submit" name="add_performance_submit" id="add_performance_submit" value="Spara">
                     </form>
                 </div>
