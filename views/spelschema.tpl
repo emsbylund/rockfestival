@@ -18,7 +18,7 @@
                         <li><a href="/festival_workers">Festivalarbetare</a></li>
                         <li><a href="">Chefer</a></li>
                         <li><a href="">Band</a> </li>
-                        <li><a href="">Säkerhetsansvarig</a></li>
+                        <li><a href="/show_security">Säkerhetsansvarig</a></li>
                     </ul>
                 </nav>
             </header>
