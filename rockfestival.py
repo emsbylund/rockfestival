@@ -65,9 +65,7 @@ def show_festival_workers():
                 FROM Ansvarig_Chef"
     cursor.execute(sql1)
     show_ansvarigchef = cursor.fetchall()
-
-
-
+    close_database()
     return template('festivaljobbare', festivaljobbare = show_festivaljobbare, chef = show_ansvarigchef)
 
 @route('/add_new_worker/', method = "POST")
@@ -111,5 +109,48 @@ def add_new_performance():
     cursor.execute(sql1)
     db.commit()
     close_database()
+
+@route('/show_security')
+def show_security():
+    sql = "SELECT Sakerhetsansvarig.Scen, Sakerhetsansvarig.Startdatum, Sakerhetsansvarig.Starttid,\
+    Sakerhetsansvarig.Slutdatum, Sakerhetsansvarig.Sluttid, Festivaljobbare.Namn, Sakerhetsansvarig.Festivaljobbare\
+    FROM Sakerhetsansvarig\
+    INNER JOIN Festivaljobbare\
+    ON Sakerhetsansvarig.Festivaljobbare = Festivaljobbare.Person_Nr;"
+    cursor = call_database()
+    cursor.execute(sql)
+    show_securityworker = cursor.fetchall()
+
+    sql2 = "SELECT Festivaljobbare.Person_Nr\
+                FROM Festivaljobbare"
+    cursor.execute(sql2)
+    list_of_workers = cursor.fetchall()
+
+    sql1 = "SELECT namn\
+                FROM scen"
+    cursor.execute(sql1)
+    stages = cursor.fetchall()
+    close_database()
+
+    return template('sakerhetsansvarig', securityworker = show_securityworker, list_of_workers = list_of_workers, stages = stages )
+
+@route('/add_new_security',  method="POST")
+def add_new_security():
+    global db
+
+    worker = request.forms.get('choose_worker')
+    stage = request.forms.get('choose_stage')
+    start_time = request.forms.get('add_start_time')
+    finish_time = request.forms.get('add_finish_time')
+    start_date = request.forms.get('start_date')
+    end_date = request.forms.get('end_date')
+
+    cursor = call_database()
+    sql2 = "INSERT INTO Sakerhetsansvarig VALUES (%s, %s, %s, %s, %s, %s);" % (worker, stage, start_time, finish_time, start_date, end_date)
+    cursor.execute(sql2)
+    db.commit()
+    print "Det funkade"
+    close_database()
+
 
 run(host='localhost', port=8000, debug=True, reloader=True)
