@@ -57,12 +57,12 @@ li a:hover {
 
 
 body {
-    
+
     background-image: url("../img/music.jpg");
-    
+
       /**  background: url(img/FESTIVAL.jpg) no-repeat center center fixed;
     background-image:url(static/img/FESTIVAL.jpg) no-repeat center center fixed; **/
- 
+
 }
 
 .left_box, .right_box {
@@ -174,7 +174,7 @@ h2 {
     font: 30px "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #666;
     text-shadow: 1px 1px 1px #444;
-    
+
 }
 h2>span {
     display: block;
@@ -262,4 +262,10 @@ nav ul{
 
 #add_performance label, #add_performance input, #add_performance select {
     display: block;
+}
+
+.box_beneath {
+    border: 1px solid black;
+    clear: both;
+    margin: 100px;
 }

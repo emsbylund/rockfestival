@@ -31,7 +31,7 @@ def start_page():
 
 @route('/schedule')
 def schedule():
-    sql = "SELECT DATE_FORMAT(framtradande.starttid, '%h:%i'), DATE_FORMAT(framtradande.sluttid, '%h:%i'), band.namn as Band, scen.namn as Scen, DATE_FORMAT(framtradande.datum, '%y-%m-%d')\
+    sql = "SELECT DATE_FORMAT(framtradande.starttid, '%T'), DATE_FORMAT(framtradande.sluttid, '%T'), band.namn as Band, scen.namn as Scen, DATE_FORMAT(framtradande.datum, '%y-%m-%d')\
                 FROM framtradande\
                 INNER JOIN band\
                 ON band.BandID = framtradande.bandID\
@@ -65,8 +65,20 @@ def show_festival_workers():
                 FROM Ansvarig_Chef"
     cursor.execute(sql1)
     show_ansvarigchef = cursor.fetchall()
+
+    sql2 = "SELECT festivaljobbare.person_nr, festivaljobbare.namn, count(spelar_i.medlems_id) as bandmedlemmar_per_kontaktperson\
+            FROM festivaljobbare\
+            INNER JOIN band\
+            ON festivaljobbare.Person_Nr=band.kontaktperson\
+            INNER JOIN spelar_i\
+            ON spelar_i.bandID=band.bandID\
+            GROUP BY festivaljobbare.namn;"
+    cursor.execute(sql2)
+    bandmedlemmar_per_kontaktperson = cursor.fetchall()
+    print bandmedlemmar_per_kontaktperson[0]
+
     close_database()
-    return template('festivaljobbare', festivaljobbare = show_festivaljobbare, chef = show_ansvarigchef)
+    return template('festivaljobbare', festivaljobbare = show_festivaljobbare, chef = show_ansvarigchef, bandmedlemmar_per_kontaktperson = bandmedlemmar_per_kontaktperson)
 
 @route('/add_new_worker/', method = "POST")
 def get_festival_workers():
@@ -109,6 +121,7 @@ def add_new_performance():
     cursor.execute(sql1)
     db.commit()
     close_database()
+    return template('added', message = 'Du har nu lagt till en ny spelning.')
 
 @route('/show_security')
 def show_security():
@@ -146,7 +159,7 @@ def add_new_security():
     end_date = request.forms.get('end_date')
 
     cursor = call_database()
-    sql2 = "INSERT INTO Sakerhetsansvarig VALUES (%s, %s, %s, %s, %s, %s);" % (worker, stage, start_time, finish_time, start_date, end_date)
+    sql2 = "INSERT INTO Sakerhetsansvarig VALUES ('%s', '%s', '%s', '%s', '%s', '%s');" % (worker, stage, start_time, finish_time, start_date, end_date)
     cursor.execute(sql2)
     db.commit()
     print "Det funkade"
