@@ -29,6 +29,7 @@
                     <table>
                         <tr>
                             <th>Band</th>
+                            <th>Datum</th>
                             <th>Startar</th>
                             <th>Slutar</th>
                             <th>Scen</th>
@@ -36,11 +37,13 @@
                         %for performance in schedule:
                         <tr>
                             <td>{{performance[2]}}</td>
+                            <td>{{performance[4]}}</td>
                             <td>{{performance[0]}}</td>
                             <td>{{performance[1]}}</td>
                             <td>{{performance[3]}}</td>
                         </tr>
                         %end
+    
                     </table>
                 </div>
                 <div class="right_box">

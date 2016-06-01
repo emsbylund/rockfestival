@@ -56,15 +56,6 @@ li a:hover {
 
 
 
-body {
-    
-    background-image: url("../img/music.jpg");
-    
-      /**  background: url(img/FESTIVAL.jpg) no-repeat center center fixed;
-    background-image:url(static/img/FESTIVAL.jpg) no-repeat center center fixed; **/
- 
-}
-
 .left_box, .right_box {
     width: 100%;
     margin: 5%;
