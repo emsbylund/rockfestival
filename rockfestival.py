@@ -6,9 +6,6 @@ import MySQLdb
 from socket import *
 import datetime
 
-#sock=socket()
-#sock.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
-
 db = None
 cursor = None
 
@@ -75,7 +72,6 @@ def show_festival_workers():
             GROUP BY festivaljobbare.namn;"
     cursor.execute(sql2)
     bandmedlemmar_per_kontaktperson = cursor.fetchall()
-    print bandmedlemmar_per_kontaktperson[0]
 
     close_database()
     return template('festivaljobbare', festivaljobbare = show_festivaljobbare, chef = show_ansvarigchef, bandmedlemmar_per_kontaktperson = bandmedlemmar_per_kontaktperson)
