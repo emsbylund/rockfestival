@@ -26,7 +26,7 @@
             <div id="content">
                 <div class="left_box">
                     <h2>Spelschema</h2>
-                    <table border="1px solid black">
+                    <table>
                         <tr>
                             <th>Band</th>
                             <th>Startar</th>
@@ -64,7 +64,7 @@
                         <input type="input" name="add_finish_time" id="add_finish_time" placeholder="hh:mm:ss">
                         <label for="date_for_show">Datum: </label>
                         <input type="input" name="date_for_show" id="date_for_show" placeholder="åååå-mm-dd">
-                        <input type="submit" name="add_performance_submit" id="add_performance_submit" value="Spara">
+                        <input type="submit" name="add_performance_submit" id="add_performance_submit" value="Spara" class="button">
                     </form>
                 </div>
             </div>
