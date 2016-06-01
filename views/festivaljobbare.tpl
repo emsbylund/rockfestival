@@ -21,7 +21,7 @@
                 </ul>
             </nav>
         </header>
-    
+
 
         <div id="wrapper">
             <div class="right_box">
@@ -33,7 +33,7 @@
                             <th>Telefon Nr</th>
                             <th>Person Nr</th>
                             <th>Ansvarig Chef</th>
-    
+
                         </tr>
                         %for worker in festivaljobbare:
                         <tr>
@@ -47,7 +47,7 @@
             </div>
             <div class="left_box">
                     <form name="add_worker"  method="POST" action="/add_new_worker/" class="dark-matter">
-                        
+
                 <h1>Lägg till ny festivaljobbare
         <span>Var god att fyll i alla fälten.</span>
                 </h1>
@@ -57,17 +57,34 @@
                 <input type="text" max="10" min="7" name="TelNr" placeholder="Skriv ditt telefon nr här"><br>
                 Person Nr:<br>
                 <input type="text" name="bday" min="10" max="10" placeholder="ååmmddxxxx"><br>
-                        
+
                 Välj ansvarig chef:<br>
-                <select name="choose_chef" form="add_worker">  
+                <select name="choose_chef" form="add_worker">
                             %for name in chef:
-                        
+
                             <option>{{name[0]}}</option>
                             %end
                         </select><br>
                 <input class="button" type="submit" value="Lägg till">
             </form>
-                
+
+            </div>
+            <div class="box_beneath">
+                <table>
+                    <h2>Antal bandmedlemmar per kontaktperson</h2>
+                    <tr>
+                        <th>Festivaljobbare Personnummer</th>
+                        <th>Festivaljobbare Namn</th>
+                        <th>Antal bandmedlemmar</th>
+                    </tr>
+                    % for kontaktperson in bandmedlemmar_per_kontaktperson:
+                    <tr>
+                        <td>{{kontaktperson[0]}}</td>
+                        <td>{{kontaktperson[1]}}</td>
+                        <td>{{kontaktperson[2]}}</td>
+                    </tr>
+                    %end
+                </table>
             </div>
         </div>
 
